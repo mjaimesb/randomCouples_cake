@@ -2,6 +2,7 @@
 class RoundsController extends AppController{
 
     public $listCouples = array();
+    public $roundId = 0;
 
     public function beforeRender()
     {
@@ -18,11 +19,16 @@ class RoundsController extends AppController{
       $rounds = $this->Round->find('all', array(
           'conditions' => array(
               'Round.statut = 0',
-              'Round.created < ' . '\'' . $date->format('Y-m-d') . '\'')));
+              'Round.created <= ' . '\'' . $date->format('Y-m-d 18:00:00') . '\''),
+          'limit' => 1
+        ));
 
         $isOK = $this->loadModel('Users');
 
-        if($isOK){
+        if($isOK && ( count($rounds)> 0 )){
+
+            $this->roundId = $rounds[0]['Round']['id'];
+
             foreach($rounds as $round){
                 foreach($round['Couple'] as $couple){
                     $ids = array($couple['idFirst'],$couple['idSecond']);
@@ -57,6 +63,9 @@ class RoundsController extends AppController{
             $email->to($to);
             $email->send('Ceci est un mail de test');
         }
+
+        $this->Round->id = $this->roundId;
+        $this->Round->saveField('statut',1);
 
         $this->render('sendmail-success');
 

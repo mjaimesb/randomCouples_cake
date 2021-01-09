@@ -1,6 +1,6 @@
 <?php
 
-        echo '<h3> Les meetings actives aujourd\'hui: </h3><br>';
+        echo '<h3> Les réunions actives aujourd\'hui: </h3><br>';
         if(isset($listCouples)){
             echo '<ul>';
             foreach($listCouples as $couple){

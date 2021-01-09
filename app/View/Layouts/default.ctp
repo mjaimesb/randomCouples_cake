@@ -55,7 +55,7 @@
       <div class="top-bar-right">
         <ul class="menu">
           <?php if($this->Session->read('Auth.User.id')): ?>
-            <li><?= $this->Html->link('Se deconnecter', array('controller' => 'users', 'action' => 'logout')); ?></li>
+            <li><?= $this->Html->link('Se déconnecter', array('controller' => 'users', 'action' => 'logout')); ?></li>
           <?php else: ?>
             <li><?= $this->Html->link('Se connecter', array('controller' => 'users', 'action' => 'login')); ?></li>
           <?php endif ?>
